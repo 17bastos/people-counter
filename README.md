@@ -1,6 +1,8 @@
 # peoplecounter
 
- A people counter
+ Um contador de pessoas
+ 
+ Este aplicativo foi desenvolvido para apoiar o controle de fluxo de pessoas dentro de um estabelecimento fechado.
 
 ## Getting Started
 
