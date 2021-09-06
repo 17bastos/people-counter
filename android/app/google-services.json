@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "243231973077",
+    "project_id": "people-counter-c96e5",
+    "storage_bucket": "people-counter-c96e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243231973077:android:7863625e423595a3f14c5c",
+        "android_client_info": {
+          "package_name": "br.com.mivendas.peoplecounter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243231973077-p20u84sgl1uqbavtslupoutm7sthgbu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb6xJvqM9T5HBmgHeFXNoW4DUMe4-kX9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243231973077-p20u84sgl1uqbavtslupoutm7sthgbu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

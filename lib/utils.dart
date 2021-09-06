@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:peoplecounter/strings.dart';
 
 getIcon(TargetPlatform platform) {
-  assert(platform != null);
   switch (platform) {
     case TargetPlatform.android:
     case TargetPlatform.fuchsia:
@@ -17,7 +16,7 @@ getIcon(TargetPlatform platform) {
   return null;
 }
 
-alert(BuildContext context, String msg, {Function callback}) {
+alert(BuildContext context, String msg, {Function? callback}) {
   showDialog(
     context: context,
     barrierDismissible: false,
