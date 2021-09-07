@@ -157,55 +157,59 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              Strings.quantidade_de_pessoas_dentro,
-              style: TextStyle(fontSize: 25),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(fontSize: 100),
-            ),
-            SizedBox(
-              height: 80,
-            ),
-            Row(
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Transform.scale(
-                  scale: 1.5,
-                  child: FloatingActionButton(
-                    key: Key("add"),
-                    onPressed: _decrementCounter,
-                    backgroundColor: Colors.red,
-                    tooltip: Strings.menos_uma_pessoa,
-                    child: Icon(Icons.remove),
-                  ),
+                Text(
+                  Strings.quantidade_de_pessoas_dentro,
+                  style: TextStyle(fontSize: 25),
                 ),
                 SizedBox(
-                  width: 80,
+                  height: 10,
                 ),
-                Transform.scale(
-                  scale: 1.5,
-                  child: FloatingActionButton(
-                    key: Key("remove"),
-                    onPressed: _incrementCounter,
-                    tooltip: Strings.mais_uma_pessoa,
-                    backgroundColor: Colors.green,
-                    child: Icon(Icons.add),
-                  ),
+                Text(
+                  '$_counter',
+                  style: TextStyle(fontSize: 100),
+                ),
+                SizedBox(
+                  height: 80,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Transform.scale(
+                      scale: 1.5,
+                      child: FloatingActionButton(
+                        key: Key("add"),
+                        onPressed: _decrementCounter,
+                        backgroundColor: Colors.red,
+                        tooltip: Strings.menos_uma_pessoa,
+                        child: Icon(Icons.remove),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 80,
+                    ),
+                    Transform.scale(
+                      scale: 1.5,
+                      child: FloatingActionButton(
+                        key: Key("remove"),
+                        onPressed: _incrementCounter,
+                        tooltip: Strings.mais_uma_pessoa,
+                        backgroundColor: Colors.green,
+                        child: Icon(Icons.add),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-            adContainer
-          ],
-        ),
+          ),
+          Positioned(bottom: 0.0, left: 0.0, right: 0.0,child: Align(alignment: FractionalOffset.bottomCenter,child: adContainer))
+        ]
       ),
     );
   }
