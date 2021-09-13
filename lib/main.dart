@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:peoplecounter/prefs.dart';
+import 'package:peoplecounter/counter.dart';
 import 'package:peoplecounter/strings.dart';
-import 'package:peoplecounter/utils.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
@@ -37,8 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   final BannerAd myBanner = BannerAd(
     adUnitId: 'ca-app-pub-2567071790842101/5978092829',
     size: AdSize.banner,
@@ -70,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _getCounterFromPrefs();
     myBanner.load();
     adWidget = AdWidget(ad: myBanner);
     adContainer = Container(
@@ -82,135 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  _getCounterFromPrefs() async {
-    _counter = await Prefs.getInt("counter");
-    setState(() {});
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      Prefs.setInt("counter", _counter);
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter = _counter - 1 < 0 ? 0 : _counter - 1;
-      Prefs.setInt("counter", _counter);
-    });
-  }
-
-
-  void _clearCounter() {
-    setState(() {
-      _counter = 0;
-      Prefs.setInt("counter", _counter);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title ?? ""),
-        actions: <Widget>[
-          PopupMenuButton<int>(
-            icon: getIcon(Theme.of(context).platform),
-            onSelected: (selection) {
-              switch (selection) {
-                case 0:
-                  _clearCounter();
-                  break;
-                case 1:
-                  alert(context, Strings.descricao_sobre);
-                  break;
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 0,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(Strings.zerar_contador),
-                  ],
-                ),
-              ),
-              PopupMenuItem(
-                value: 1,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(Strings.sobre),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-      body: Stack(
+    return Stack(
         children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  Strings.quantidade_de_pessoas_dentro,
-                  style: TextStyle(fontSize: 25),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '$_counter',
-                  style: TextStyle(fontSize: 100),
-                ),
-                SizedBox(
-                  height: 80,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Transform.scale(
-                      scale: 1.5,
-                      child: FloatingActionButton(
-                        key: Key("add"),
-                        onPressed: _decrementCounter,
-                        backgroundColor: Colors.red,
-                        tooltip: Strings.menos_uma_pessoa,
-                        child: Icon(Icons.remove),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 80,
-                    ),
-                    Transform.scale(
-                      scale: 1.5,
-                      child: FloatingActionButton(
-                        key: Key("remove"),
-                        onPressed: _incrementCounter,
-                        tooltip: Strings.mais_uma_pessoa,
-                        backgroundColor: Colors.green,
-                        child: Icon(Icons.add),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          Counter(title: widget.title,),
           Positioned(bottom: 0.0, left: 0.0, right: 0.0,child: Align(alignment: FractionalOffset.bottomCenter,child: adContainer))
         ]
-      ),
     );
   }
 }
