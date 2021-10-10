@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:peoplecounter/counter.dart';
 import 'package:peoplecounter/strings.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+StreamController<bool> isLightTheme = StreamController();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +19,29 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Strings.contador_de_pessoas,
-      theme: ThemeData(
+
+    final darkTheme = ThemeData(
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      colorScheme: ColorScheme.fromSwatch(
         primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: Strings.contador_de_pessoas),
+        brightness: Brightness.dark,
+      ).copyWith(secondary: Colors.white));
+
+    final lightTheme = ThemeData(
+      primarySwatch: Colors.blue,
+    );
+
+    return StreamBuilder<bool>(
+      initialData: true,
+      stream: isLightTheme.stream,
+      builder: (context, snapshot) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: Strings.contador_de_pessoas,
+          theme: (snapshot?.data??true) ? lightTheme : darkTheme,
+          home: MyHomePage(title: Strings.contador_de_pessoas),
+        );
+      },
     );
   }
 }

@@ -5,5 +5,7 @@ abstract class Strings {
   static const String menos_uma_pessoa = "Menos uma pessoa";
   static const String zerar_contador = "Zerar contador";
   static const String sobre = "Sobre";
-  static const String descricao_sobre = "Este aplicativo foi desenvolvido para apoiar o controle de fluxo de pessoas dentro de um estabelecimento fechado.\n\n\n\nTodos contra o #Corona";
+  static const String tema_claro = "Tema claro";
+  static const String tema_escuro = "Tema escuro";
+  static const String descricao_sobre = "Este aplicativo foi desenvolvido para apoiar o controle de fluxo de pessoas dentro de um estabelecimento.";
 }

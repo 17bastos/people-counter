@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peoplecounter/main.dart';
 import 'package:peoplecounter/prefs.dart';
 import 'package:peoplecounter/strings.dart';
 import 'package:peoplecounter/utils.dart';
@@ -17,6 +18,7 @@ class _CounterState extends State<Counter> {
 
 
   int _counter = 0;
+  bool _isThemeLight = false;
 
   _getCounterFromPrefs() async {
     _counter = await Prefs.getInt("counter");
@@ -44,6 +46,13 @@ class _CounterState extends State<Counter> {
     });
   }
 
+  _setTheme() {
+    setState(() {
+      _isThemeLight = !_isThemeLight;
+      isLightTheme.add(_isThemeLight);
+    });
+  }
+
   @override
   void initState() {
     _getCounterFromPrefs();
@@ -64,6 +73,9 @@ class _CounterState extends State<Counter> {
                   _clearCounter();
                   break;
                 case 1:
+                  _setTheme();
+                  break;
+                case 2:
                   alert(context, Strings.descricao_sobre);
                   break;
               }
@@ -81,9 +93,21 @@ class _CounterState extends State<Counter> {
                     Text(Strings.zerar_contador),
                   ],
                 ),
+              ),PopupMenuItem(
+                value: 1,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(_isThemeLight ? Strings.tema_escuro : Strings.tema_claro),
+                  ],
+                ),
               ),
               PopupMenuItem(
-                value: 1,
+                value: 2,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
