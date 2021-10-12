@@ -8,4 +8,5 @@ abstract class Strings {
   static const String tema_claro = "Tema claro";
   static const String tema_escuro = "Tema escuro";
   static const String descricao_sobre = "Este aplicativo foi desenvolvido para apoiar o controle de fluxo de pessoas dentro de um estabelecimento.";
+  static const String selecione_um_tema = "Selecione um tema:";
 }

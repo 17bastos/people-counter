@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:peoplecounter/counter.dart';
 import 'package:peoplecounter/strings.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:peoplecounter/utils.dart';
 
 StreamController<bool> isLightTheme = StreamController();
 
@@ -23,12 +24,12 @@ class MyApp extends StatelessWidget {
     final darkTheme = ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.blue,
+        primarySwatch: primaryColor,
         brightness: Brightness.dark,
       ).copyWith(secondary: Colors.white));
 
     final lightTheme = ThemeData(
-      primarySwatch: Colors.blue,
+      primarySwatch: primaryColor,
     );
 
     return StreamBuilder<bool>(
