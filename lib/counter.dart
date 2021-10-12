@@ -4,6 +4,7 @@ import 'package:peoplecounter/main.dart';
 import 'package:peoplecounter/prefs.dart';
 import 'package:peoplecounter/strings.dart';
 import 'package:peoplecounter/utils.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class Counter extends StatefulWidget {
   const Counter({Key? key, this.title}) : super(key: key);
@@ -17,6 +18,7 @@ class Counter extends StatefulWidget {
 class _CounterState extends State<Counter> {
   int _counter = 0;
   bool _isThemeLight = true;
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   _getCounterFromPrefs() async {
     _counter = await Prefs.getInt("counter");
@@ -90,6 +92,7 @@ class _CounterState extends State<Counter> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                      analytics.logEvent(name: "escolheu_tema_claro");
                       Prefs.setBool('theme', true);
                       Navigator.pop(context);
                     },
@@ -105,6 +108,7 @@ class _CounterState extends State<Counter> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Colors.black87),
                     onPressed: () {
+                      analytics.logEvent(name: "escolheu_tema_escuro");
                       Prefs.setBool('theme', false);
                       _setTheme();
                       Navigator.pop(context);
@@ -144,12 +148,15 @@ class _CounterState extends State<Counter> {
             onSelected: (selection) {
               switch (selection) {
                 case 0:
+                  analytics.logEvent(name: "zerou_contador");
                   _clearCounter();
                   break;
                 case 1:
+                  analytics.logEvent(name: "trocou_o_tema");
                   _setTheme();
                   break;
                 case 2:
+                  analytics.logEvent(name: "visualizou_sobre");
                   alert(context, Strings.descricao_sobre);
                   break;
               }
