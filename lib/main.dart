@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:peoplecounter/counter.dart';
@@ -88,7 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    print("main initState");
     myBanner.load();
+    FirebaseAnalytics().logEvent(name: "banner loaded");
     adWidget = AdWidget(ad: myBanner);
     adContainer = Container(
       alignment: Alignment.center,
