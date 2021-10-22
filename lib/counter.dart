@@ -18,7 +18,6 @@ class Counter extends StatefulWidget {
 class _CounterState extends State<Counter> {
   int _counter = 0;
   bool _isThemeLight = true;
-  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   _getCounterFromPrefs() async {
     _counter = await Prefs.getInt("counter");

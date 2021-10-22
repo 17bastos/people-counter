@@ -9,6 +9,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:peoplecounter/utils.dart';
 
 StreamController<bool> isLightTheme = StreamController();
+final analytics = FirebaseAnalytics();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   final BannerAd myBanner = BannerAd(
     adUnitId: 'ca-app-pub-2567071790842101/5978092829',
     size: AdSize.banner,
@@ -69,19 +71,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final BannerAdListener listener = BannerAdListener(
     // Called when an ad is successfully received.
-    onAdLoaded: (Ad ad) => print('Ad loaded.'),
+    onAdLoaded: (Ad ad) => analytics.logEvent(name: 'Ad loaded.'),
     // Called when an ad request failed.
     onAdFailedToLoad: (Ad ad, LoadAdError error) {
       // Dispose the ad here to free resources.
       ad.dispose();
-      print('Ad failed to load: $error');
+      analytics.logEvent(name: 'Ad failed to load: $error');
     },
     // Called when an ad opens an overlay that covers the screen.
-    onAdOpened: (Ad ad) => print('Ad opened.'),
+    onAdOpened: (Ad ad) => analytics.logEvent(name: 'Ad opened.'),
     // Called when an ad removes an overlay that covers the screen.
-    onAdClosed: (Ad ad) => print('Ad closed.'),
+    onAdClosed: (Ad ad) => analytics.logEvent(name: 'Ad closed.'),
     // Called when an impression occurs on the ad.
-    onAdImpression: (Ad ad) => print('Ad impression.'),
+    onAdImpression: (Ad ad) => analytics.logEvent(name: 'Ad impression.'),
   );
 
   late AdWidget adWidget;
@@ -91,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     print("main initState");
     myBanner.load();
-    FirebaseAnalytics().logEvent(name: "banner loaded");
     adWidget = AdWidget(ad: myBanner);
     adContainer = Container(
       alignment: Alignment.center,
